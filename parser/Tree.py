@@ -3,12 +3,6 @@ class Tree:
         self.name = name
         self.left = left
         self.right = right
-    
-    def left(self):
-        return self.left
-        
-    def right(self):
-        return self.right
         
     def children(self):
         return [self.left(), self.right()]
