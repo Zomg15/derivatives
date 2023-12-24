@@ -27,13 +27,13 @@ def parse(original_array):
     # If the top-level operation is a function, set that to the root of the tree and the rest to the branch, then parse that
     if tree[0] in ["sin", "cos", "tan", "log", "ln", "sqrt"] and tree[1] == "(" and tree[-1] == ")":
         if tree[0] == "sqrt":
-            tree = Tree("^", tree[1:], 0.5)
-            tree.replace_left(parse(tree.left()))
-            return tree
+            new_tree = Tree("^", tree[1:], 0.5)
+            new_tree.replace_left(parse(new_tree.left))
+            return new_tree
         else:
-            tree = Tree(tree[0], tree[1:])
-            tree.replace_left(parse(tree.left()))
-            return tree
+            new_tree = Tree(tree[0], tree[1:])
+            new_tree.replace_left(parse(new_tree.left))
+            return new_tree
 
 
     # Otherwise, go through list (in reverse order, to not affect later indices).
@@ -43,3 +43,30 @@ def parse(original_array):
     # Run the parse function on that array.
     # Keep iterating until the end is reached.
     
+    depth = 0
+    has_nested_parentheses = False
+    topmost_end_index = 0
+    topmost_start_index = 0
+    for token, i in reversed(list(enumerate(tree))):
+        if token == ")":
+            depth += 1
+            if not has_nested_parentheses:
+                topmost_end_index = i
+            has_nested_parentheses = True
+        if token == "(":
+            depth -= 1
+        
+        if depth == 0 and has_nested_parentheses: # Topmost brackets found
+            if tree[i-1] in ["sin", "cos", "tan", "log", "ln", "sqrt"]:
+                topmost_start_index = i - 1
+            else:
+                topmost_start_index = i
+            topmost_parentheses = tree[topmost_start_index:topmost_end_index]
+            del tree[topmost_start_index:topmost_end_index]
+            tree.insert(topmost_start_index, parse(topmost_parentheses))
+    
+    return tree
+        
+
+parsed_tree = parse(['sqrt', '(', 'x', '^', '3', '+', '3.3', 'x', '^', '2', '+', '9', 'x', '/', 'sin', '(', 'x', ')', ')', '+', 'ln', '(', 'x', ')'])
+print(parsed_tree)
