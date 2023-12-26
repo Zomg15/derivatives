@@ -15,3 +15,6 @@ class Tree:
 
     def replace_right(self, tree):
         self.right = tree
+
+    def __str__(self):
+        return f"({self.left} {self.name} {self.right})"
