@@ -16,5 +16,10 @@ class Tree:
     def replace_right(self, tree):
         self.right = tree
 
-    def __str__(self):
-        return f"({str(self.left)} {self.name} {str(self.right)})"
+    def __repr__(self):
+        '''if self.name in ["+", "-", "*", "/", "^"]:
+            return f"{repr(self.left)} {self.name} {repr(self.right)}"
+        else:
+            return f"{self.name}({repr(self.left)}{',' if self.right is not None else ''}{f' {repr(self.right)}' if self.right is not None else ''})"'''
+        
+        return f"({repr(self.left)} {self.name} {repr(self.right)})"
