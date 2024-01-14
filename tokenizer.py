@@ -55,6 +55,6 @@ class Tokenizer:
             else:
                 current_token += self.consume()
 
-tokenizer = Tokenizer()
-tokenizer.run("sqrt(x^3 + 3.3x^2 + 9x/ sin(x)) + ln(x)")
-print(tokenizer.result)
+#tokenizer = Tokenizer()
+#tokenizer.run("sqrt(x^3 + 3.3x^2 + 9x/ sin(x)) + ln(x)")
+#print(tokenizer.result)
