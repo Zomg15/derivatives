@@ -8,6 +8,8 @@ class Tree:
         return [self.left(), self.right()]
     
     def __eq__(self, other):
+        if type(other) != Tree:
+            return False
         return self.name == other.name and self.left == other.left and self.right == other.right
     
     def replace_left(self, tree):
@@ -22,4 +24,10 @@ class Tree:
         else:
             return f"{self.name}({repr(self.left)}{',' if self.right is not None else ''}{f' {repr(self.right)}' if self.right is not None else ''})"'''
         
-        return f"({repr(self.left)} {self.name} {repr(self.right)})"
+        #return f"({repr(self.left)} {self.name} {repr(self.right)})"
+        if self.name in ["+", "-", "*", "/", "^"]:
+            return f"{repr(self.left)} {self.name} {repr(self.right)}"
+        elif self.name == "x":
+            return f"{self.left}x^{self.right}"
+        else:
+            return f"{self.name}({repr(self.left)}{',' if self.right is not None else ''}{f' {repr(self.right)}' if self.right is not None else ''})"

@@ -11,6 +11,13 @@ class Parser:
                 depth -= 1
         
         return depth == 0
+    
+    def is_number(self, token):
+        try:
+            _ = float(token)
+        except Exception:
+            return False
+        return True
 
     def begin_parse(self, arr):
         return Tree("f", self.parse(arr))
@@ -104,6 +111,30 @@ class Parser:
                 tree.insert(topmost_start_index, self.parse(topmost_parentheses))
                 has_nested_parentheses = False
         
+        # Turn x into a polynomial
+        
+        print("polynomie time")
+        for i, token in enumerate(tree):
+            if token == "x":
+                print(f"found x at {i}")
+                coefficient = 1
+                power = 1
+                has_coefficient = False
+                has_power = False
+                if i != 0 and self.is_number(tree[i-1]):
+                    print(f"found coefficient at {i-1}: {tree[i-1]}")
+                    coefficient = float(tree[i-1])
+                    has_coefficient = True
+                if i < len(tree) - 1 and self.is_number(tree[i+1]):
+                    print(f"found power at {i+1}: {tree[i+1]}")
+                    power = float(tree[i+1])
+                    has_power = True
+                polynomial_tree = Tree("x", coefficient, power)
+                del tree[(i-1 if has_coefficient else i):(i+2 if has_power else i+1)]
+                tree.insert(i-1 if has_coefficient else i, polynomial_tree)
+                
+
+
         # Now that parentheses are dealt with, we can do the operations
         # Go by order of operations (exponents, multiplication/division, addition/subtraction), bring together left and right operands
         # When deleting operator and left/right branches, the index you have to reinsert the tree in is index - 1 (the place of the left operand)
@@ -126,8 +157,11 @@ class Parser:
             print(f"ended up with list {tree}")
             return tree[0]
         else:
+            print(f"returning {tree}")
             return tree
         
 # sqrt(x) + ln(x+1)
-#parsed_tree = begin_parse(['sqrt', '(', 'x', ')', '+', 'ln', '(', 'x', '+', '1', ')'])
+#parser = Parser()
+#parsed_tree = parser.begin_parse(['sqrt', '(', 'x', ')', '+', 'ln', '(', 'x', '+', '1', ')'])
 #print(parsed_tree)
+#print("pretty", parsed_tree.pretty())
