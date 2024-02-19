@@ -26,8 +26,15 @@ class Tree:
         
         #return f"({repr(self.left)} {self.name} {repr(self.right)})"
         if self.name in ["+", "-", "*", "/", "^"]:
-            return f"{repr(self.left)} {self.name} {repr(self.right)}"
+            return f"({repr(self.left)} {self.name} {repr(self.right)})"
         elif self.name == "x":
-            return f"{self.left}x^{self.right}"
+            if self.left == 1.0 and self.right == 1.0:
+                return "x"
+            elif self.right == 1.0:
+                return f"{int(self.left) if self.left.is_integer() else self.left}x"
+            elif self.left == 1.0:
+                return f"x^{int(self.right) if self.right.is_integer() else self.right}"
+            else:
+                return f"{int(self.left) if self.left.is_integer() else self.left}x^{int(self.right) if self.right.is_integer() else self.right}"
         else:
             return f"{self.name}({repr(self.left)}{',' if self.right is not None else ''}{f' {repr(self.right)}' if self.right is not None else ''})"
