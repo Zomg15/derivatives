@@ -38,3 +38,16 @@ class Tree:
                 return f"{int(self.left) if self.left.is_integer() else self.left}x^{int(self.right) if self.right.is_integer() else self.right}"
         else:
             return f"{self.name}({repr(self.left)}{',' if self.right is not None else ''}{f' {repr(self.right)}' if self.right is not None else ''})"
+    
+    def find_and_replace(self, find, replace):
+        if self.left == find:
+            self.replace_left(replace)
+        elif type(self.left) is Tree:
+            self.left.find_and_replace(find=find, replace=replace)
+        
+        if self.right == find:
+            self.replace_right(replace)
+        elif type(self.right) is Tree:
+            self.right.find_and_replace(find=find, replace=replace)
+        
+        
