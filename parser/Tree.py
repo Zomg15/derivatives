@@ -40,14 +40,17 @@ class Tree:
             return f"{self.name}({repr(self.left)}{',' if self.right is not None else ''}{f' {repr(self.right)}' if self.right is not None else ''})"
     
     def find_and_replace(self, find, replace):
-        if self.left == find:
+        print(f"In {self}, finding {find} and replacing {replace}")
+        tree_to_find = find
+        tree_to_replace = replace
+        if self.left == tree_to_find:
             self.replace_left(replace)
         elif type(self.left) is Tree:
-            self.left.find_and_replace(find=find, replace=replace)
+            self.left.find_and_replace(tree_to_find, tree_to_replace)
         
         if self.right == find:
             self.replace_right(replace)
         elif type(self.right) is Tree:
-            self.right.find_and_replace(find=find, replace=replace)
+            self.right.find_and_replace(tree_to_find, tree_to_replace)
         
         
