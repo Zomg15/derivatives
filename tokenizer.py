@@ -6,6 +6,9 @@ class Tokenizer:
     expression = ""
     result = []
 
+    def __init__(self):
+        self.result = []
+
     # Returns the current character
     def current(self):
         return self.expression[self.index]
