@@ -6,7 +6,6 @@ class FindDerivative:
     x = Tree("x", 1.0, 1.0)
 
     def derive(self, original: Tree):
-        print(f"Deriving {original}")
         # Top-level function
         if original.name == "f":
             return self.derive(original.left)
@@ -144,7 +143,6 @@ class FindDerivative:
                 outer_function.find_and_replace(inner_function, self.x)
                 outer_function = self.derive(outer_function)
                 outer_function.find_and_replace(self.x, inner_function)
-                print(f"Replaced: {outer_function}")
                 return Tree(
                     "*",
                     outer_function,

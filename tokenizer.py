@@ -57,7 +57,3 @@ class Tokenizer:
             # Otherwise, it's probably just a function name, so make it a token
             else:
                 current_token += self.consume()
-
-#tokenizer = Tokenizer()
-#tokenizer.run("sqrt(x^3 + 3.3x^2 + 9x/ sin(x)) + ln(x)")
-#print(tokenizer.result)

@@ -24,9 +24,6 @@ def calc():
     tokeniser.run(func.get())
 
     result = tokeniser.result
-    #print(f"RESULT: {result}")
-    #tokeniser.result = []
-    #del tokeniser
 
     parser = Parser()
 

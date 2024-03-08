@@ -43,7 +43,6 @@ class Tree:
             return f"{self.name}({repr(self.left)}{',' if self.right is not None else ''}{f' {repr(self.right)}' if self.right is not None else ''})".replace("'", "")
     
     def find_and_replace(self, find, replace):
-        print(f"In {self}, finding {find} and replacing {replace}")
         tree_to_find = find
         tree_to_replace = replace
         if self.left == tree_to_find:
