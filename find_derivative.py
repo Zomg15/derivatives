@@ -83,7 +83,25 @@ class FindDerivative:
                     )
                 # Composite exponential - get back here when chain rule is done!
                 else:
-                    raise ValueError("Not implemented yet!")
+                    if original.left == "e":
+                        return Tree(
+                            "*",
+                            original,
+                            self.derive(original.right)
+                        )
+                    else:
+                        return Tree(
+                            "*",
+                            Tree(
+                                "*",
+                                original,
+                                Tree(
+                                    "ln",
+                                    original.left
+                                )
+                            ),
+                            self.derive(original.right)
+                        )
             # ACTUAL unary functions - non-composite
             elif original.right is None and original.left == self.x:
                 match original.name:
