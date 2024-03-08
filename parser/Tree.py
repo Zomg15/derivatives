@@ -18,6 +18,9 @@ class Tree:
     def replace_right(self, tree):
         self.right = tree
 
+    def display_number(self, num):
+        return int(num) if num.is_integer() else num
+
     def __repr__(self):
         '''if self.name in ["+", "-", "*", "/", "^"]:
             return f"{repr(self.left)} {self.name} {repr(self.right)}"
@@ -26,18 +29,18 @@ class Tree:
         
         #return f"({repr(self.left)} {self.name} {repr(self.right)})"
         if self.name in ["+", "-", "*", "/", "^"]:
-            return f"({repr(self.left)} {self.name} {repr(self.right)})"
+            return f"({repr(self.left)} {self.name} {repr(self.right)})".replace("'", "")
         elif self.name == "x":
             if self.left == 1.0 and self.right == 1.0:
                 return "x"
             elif self.right == 1.0:
-                return f"{int(self.left) if self.left.is_integer() else self.left}x"
+                return f"{self.display_number(self.left)}x"
             elif self.left == 1.0:
-                return f"x^{int(self.right) if self.right.is_integer() else self.right}"
+                return f"x^{self.display_number(self.right)}"
             else:
-                return f"{int(self.left) if self.left.is_integer() else self.left}x^{int(self.right) if self.right.is_integer() else self.right}"
+                return f"{self.display_number(self.left)}x^{self.display_number(self.right)}"
         else:
-            return f"{self.name}({repr(self.left)}{',' if self.right is not None else ''}{f' {repr(self.right)}' if self.right is not None else ''})"
+            return f"{self.name}({repr(self.left)}{',' if self.right is not None else ''}{f' {repr(self.right)}' if self.right is not None else ''})".replace("'", "")
     
     def find_and_replace(self, find, replace):
         print(f"In {self}, finding {find} and replacing {replace}")
