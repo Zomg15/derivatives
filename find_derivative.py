@@ -68,7 +68,7 @@ class FindDerivative:
             # Exponentials
             if original.name == "^":
                 # e^x
-                if original.left == "e":
+                if original.left == "e" and original.right == self.x:
                     return Tree("^", "e", self.x)
                 # Non-composite exponential
                 elif original.right == self.x:
@@ -80,7 +80,7 @@ class FindDerivative:
                             original.left
                         )
                     )
-                # Composite exponential - get back here when chain rule is done!
+                # Composite exponential
                 else:
                     if original.left == "e":
                         return Tree(
@@ -133,6 +133,19 @@ class FindDerivative:
                                 Tree(
                                     "ln",
                                     10.0
+                                )
+                            )
+                        )
+                    case "sqrt":
+                        return Tree(
+                            "/",
+                            1.0,
+                            Tree(
+                                "*",
+                                2.0,
+                                Tree(
+                                    "sqrt",
+                                    self.x
                                 )
                             )
                         )

@@ -28,6 +28,7 @@ def calc():
     parser = Parser()
 
     tree_form = parser.begin_parse(result)
+    print(tree_form)
 
     derivative_finder = FindDerivative()
 

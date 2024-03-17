@@ -60,14 +60,18 @@ class Parser:
                     end_index = i
                     break
             if end_index == len(tree) - 1:
-                if tree[0] == "sqrt":
-                    new_tree = Tree("^", tree[1:(end_index+1)], 0.5)
-                    new_tree.replace_left(self.parse(new_tree.left))
-                    return new_tree
-                else:
-                    new_tree = Tree(tree[0], tree[1:(end_index+1)])
-                    new_tree.replace_left(self.parse(new_tree.left))
-                    return new_tree
+                """ if tree[0] == "sqrt":
+                    inner_tree = self.parse(tree[1:(end_index+1)])
+                    if inner_tree == Tree("x", 1.0, 1.0):
+                        return Tree("x", 1.0, 0.5)
+                    else:
+                        new_tree = Tree("^", tree[1:(end_index+1)], 0.5)
+                        new_tree.replace_left(self.parse(new_tree.left))
+                        return new_tree
+                else: """
+                new_tree = Tree(tree[0], tree[1:(end_index+1)])
+                new_tree.replace_left(self.parse(new_tree.left))
+                return new_tree
 
 
         # Otherwise, go through list (in reverse order, to not affect later indices).

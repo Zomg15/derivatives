@@ -22,12 +22,6 @@ class Tree:
         return int(num) if num.is_integer() else num
 
     def __repr__(self):
-        '''if self.name in ["+", "-", "*", "/", "^"]:
-            return f"{repr(self.left)} {self.name} {repr(self.right)}"
-        else:
-            return f"{self.name}({repr(self.left)}{',' if self.right is not None else ''}{f' {repr(self.right)}' if self.right is not None else ''})"'''
-        
-        #return f"({repr(self.left)} {self.name} {repr(self.right)})"
         if self.name in ["+", "-", "*", "/", "^"]:
             return f"({repr(self.left)} {self.name} {repr(self.right)})".replace("'", "")
         elif self.name == "x":
