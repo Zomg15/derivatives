@@ -1,6 +1,7 @@
 from tokenizer import Tokenizer
 from parser.parser import Parser
 from find_derivative import FindDerivative
+from parser.Tree import Tree
 
 from tkinter import *
 from tkinter import ttk
@@ -31,8 +32,12 @@ def calc():
     print(tree_form)
 
     derivative_finder = FindDerivative()
+    derivative = derivative_finder.derive(tree_form)
 
-    output.set(derivative_finder.derive(tree_form).__repr__())
+    if type(derivative) == Tree:
+        derivative = derivative.clean(derivative)
+
+    output.set(derivative.__repr__())
     func.set("")
 
 def toggle_rules():

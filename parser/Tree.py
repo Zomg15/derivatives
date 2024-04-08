@@ -3,6 +3,13 @@ class Tree:
         self.name = name
         self.left = left
         self.right = right
+
+    def is_number(self, token):
+        try:
+            _ = float(token)
+        except Exception:
+            return False
+        return True
         
     def children(self):
         return [self.left(), self.right()]
@@ -48,5 +55,55 @@ class Tree:
             self.replace_right(replace)
         elif type(self.right) is Tree:
             self.right.find_and_replace(tree_to_find, tree_to_replace)
+
+    def clean(self, tree): # This should only be run after the derivative is found.
+        if type(tree) != Tree:
+            if self.is_number(tree):
+                return float(tree)
+            else:
+                return tree
+        
+        if tree.name != "x":
+            tree.replace_left(tree.clean(tree.left))
+            if tree.right is not None:
+                tree.replace_right(tree.clean(tree.right))
+
+        match tree.name:
+            case "+":
+                if self.is_number(tree.left) and self.is_number(tree.right):
+                    return float(tree.left) + float(tree.right)
+                else:
+                    if tree.left == 0:
+                        return tree.right
+                    if tree.right == 0:
+                        return tree.left
+            case "-":
+                if self.is_number(tree.left) and self.is_number(tree.right):
+                    return float(tree.left) - float(tree.right)
+                else:
+                    if tree.left == 0:
+                        return Tree("*", -1, tree.right)
+                    if tree.right == 0:
+                        return tree.left
+            case "*":
+                if self.is_number(tree.left) and self.is_number(tree.right):
+                    return float(tree.left) * float(tree.right)
+                else:
+                    if tree.left == 0 or tree.right == 0:
+                        return 0
+                    if tree.left == 1:
+                        return tree.right
+                    if tree.right == 1:
+                        return tree.left
+            case "/":
+                if self.is_number(tree.left) and self.is_number(tree.right):
+                    return float(tree.left) * float(tree.right)
+                else:
+                    if tree.left == 0:
+                        return 0
+                    if tree.right == 1:
+                        return tree.left
+        return tree
+
         
         
