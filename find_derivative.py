@@ -6,6 +6,9 @@ class FindDerivative:
     x = Tree("x", 1.0, 1.0)
 
     def derive(self, original: Tree):
+        # If it's a string, then it's probably a constant, meaning its derivative is 0
+        if type(original) == str:
+            return 0
         # Top-level function
         if original.name == "f":
             return self.derive(original.left)
@@ -111,7 +114,7 @@ class FindDerivative:
                     case "tan":
                         return Tree(
                             "/",
-                            1,
+                            1.0,
                             Tree(
                                 "^",
                                 Tree(
