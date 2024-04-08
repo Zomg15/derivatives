@@ -15,6 +15,9 @@ class FindDerivative:
         # Sum
         if original.name == "+":
             return Tree("+", self.derive(original.left), self.derive(original.right))
+        # Difference
+        if original.name == "-":
+            return Tree("-", self.derive(original.left), self.derive(original.right))
         # Product
         elif original.name == "*":
             # Multiplying by a constant
