@@ -18,6 +18,8 @@ Ruutjuure jaoks võib kasutada funktsiooni sqrt(). Muude murdarvuliste astmete p
 Logaritmide puhul on saadaval funktsioonid ln() ja log(). Muude aluste jaoks peab kasutama aluse vahetuse reeglit, et avaldada logaritm kas ln() või log() suhtes.
 """
 
+font_style = ("Segoe UI", 20)
+
 def calc():
     print(f"INPUT: {func.get()}")
     tokeniser = Tokenizer()
@@ -54,22 +56,22 @@ def toggle_rules():
 main_frame = Tk()
 main_frame.title("Tuletiste leidja")
 
-ttk.Label(main_frame, text="Funktsioon:").grid(column=1, row=1, sticky=W)
+ttk.Label(main_frame, text="Funktsioon:", font=font_style).grid(column=1, row=1, sticky=W)
 
 func = StringVar()
-func_textbox = ttk.Entry(main_frame, width=30, textvariable=func)
+func_textbox = ttk.Entry(main_frame, width=30, textvariable=func, font=font_style)
 func_textbox.grid(column=2, row=1, sticky=E)
 
-rules_button = ttk.Button(main_frame, text="Kuva reeglid", command=toggle_rules)
+rules_button = Button(main_frame, text="Kuva reeglid", command=toggle_rules, font=font_style)
 rules_button.grid(column=1, row=2, sticky=W)
-ttk.Button(main_frame, text="Arvuta", command=calc).grid(column=2, row=2, sticky=E)
+Button(main_frame, text="Arvuta", command=calc, font=font_style).grid(column=2, row=2, sticky=E)
 
-rules = ttk.Label(main_frame, text="")
+rules = ttk.Label(main_frame, text="", font=("Segoe UI", 10))
 rules.grid(column=1, row=3, sticky=W)
 
 output = StringVar()
-ttk.Label(main_frame, text="Tulemus:").grid(column=1, row=4, sticky=W)
-output_label = ttk.Label(main_frame, textvariable=output)
+ttk.Label(main_frame, text="Tulemus:", font=font_style).grid(column=1, row=4, sticky=W)
+output_label = ttk.Label(main_frame, textvariable=output, font=font_style)
 output_label.grid(column=2, row=4, sticky=E)
 
 for child in main_frame.winfo_children():
